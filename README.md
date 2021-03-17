@@ -61,3 +61,25 @@ python3 visualize_migratein_3phase.py --phase-csv slope_phase.csv --label Migrat
 ```
 
 ![Migrate-out labeling](img/migrateout_usage.png)
+
+## Label from last log
+
+You can interrupt your labeling process at anytime. If you wish to load from the previous, you need to specify the log file with ```--log-json```. In the following example, we provide the log file ```log_mitosis_prelabel.json``` and ```log_migration_prelabel.json```
+
+The command is same as [Label from scratch](#label-from-scratch)
+
+```
+python3 visualize_mitosis_3phase.py --phase-csv slope_phase.csv --log-json log_mitosis_prelabel.json
+python3 visualize_migratein_3phase.py --phase-csv slope_phase.csv --log-json log_migration_prelabel.json
+python3 visualize_migratein_3phase.py --phase-csv slope_phase.csv --label Migrate-out --log-json log_migration_prelabel.json
+```
+
+You should see the cropped image on your interface. (Here we use migrate-in event for example)
+
+![Migrate-in labeling after crop](img/migratein_aftercrop.png)
+
+If you are not satisfied with the crop, you can press ```Esc``` and crop it by yourself.
+
+### Continue from the last checkpoint
+
+If you are confident with your previous label or our prelabel file, you can specify ```--skip-labeled``` to skip those images. Another usage of this feature is: If you just want to export the images with different plot setting (e.g. Value scaling), you can just modify the code and run this script. This file will generate images with new setting using the existed prelabel file.
