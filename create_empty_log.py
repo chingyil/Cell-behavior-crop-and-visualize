@@ -1,12 +1,10 @@
-from eval_conjugate import get_data_all
+from util import get_data_all
 import argparse
 import json
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    # parser.add_argument("--img-path", default="/home/chingyi/Datasets/images")
     parser.add_argument("--cdata-dir", default="~/Datasets/capData_csv")
-    # parser.add_argument("--phase-csv", default="mitosis_phase.csv")
     parser.add_argument("--log-json", default="log.json")
     parser.add_argument("--expr", nargs='+', default=[1,3,7,20,22])
     args = parser.parse_args()
