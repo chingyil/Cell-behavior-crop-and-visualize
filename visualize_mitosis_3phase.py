@@ -57,21 +57,21 @@ def get_offset_range(phases, label='mitosis'):
             tchannel = tchannel_all[expr][c].to_numpy() / 3600
             cchannel_nopeak = cchannel_all[expr][c]
             if phases.iloc[idx0]['mitosis-phase1'] != '-':
-                t_phase0 = float(phases.iloc[idx0]['mitosis-phase1'])
-                y_phase0 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase0)]
-                y_value_each.append(y_phase0)
-            if phases.iloc[idx0]['mitosis-phase2'] != '-':
-                t_phase1 = float(phases.iloc[idx0]['mitosis-phase2'])
+                t_phase1 = float(phases.iloc[idx0]['mitosis-phase1'])
                 y_phase1 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase1)]
                 y_value_each.append(y_phase1)
-            if phases.iloc[idx0]['mitosis-phase3'] != '-':
-                t_phase2 = float(phases.iloc[idx0]['mitosis-phase3'])
+            if phases.iloc[idx0]['mitosis-phase2'] != '-':
+                t_phase2 = float(phases.iloc[idx0]['mitosis-phase2'])
                 y_phase2 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase2)]
                 y_value_each.append(y_phase2)
-            if phases.iloc[idx0]['mitosis-phase4'] != '-':
-                t_phase3 = float(phases.iloc[idx0]['mitosis-phase4'])
+            if phases.iloc[idx0]['mitosis-phase3'] != '-':
+                t_phase3 = float(phases.iloc[idx0]['mitosis-phase3'])
                 y_phase3 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase3)]
                 y_value_each.append(y_phase3)
+            if phases.iloc[idx0]['mitosis-phase4'] != '-':
+                t_phase4 = float(phases.iloc[idx0]['mitosis-phase4'])
+                y_phase4 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase4)]
+                y_value_each.append(y_phase4)
             y_value_all_list.append(y_value_each)
 
     ydiff = [max(y_each) - min(y_each) for y_each in y_value_all_list]
@@ -136,28 +136,25 @@ if __name__ == '__main__':
     
             t_value, y_value = [], []
             if phases.iloc[idx0]['mitosis-phase1'] != '-':
-                t_phase0 = float(phases.iloc[idx0]['mitosis-phase1'])
-                y_phase0 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase0)]
-                # axs[0].scatter(t_phase0, y_phase0, label='phase0')
-                y_value.append(y_phase0)
-                t_value.append(t_phase0)
-            if phases.iloc[idx0]['mitosis-phase2'] != '-':
-                t_phase1 = float(phases.iloc[idx0]['mitosis-phase2'])
+                t_phase1 = float(phases.iloc[idx0]['mitosis-phase1'])
                 y_phase1 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase1)]
-                # axs[0].scatter(t_phase1, y_phase1, label='phase1')
                 y_value.append(y_phase1)
                 t_value.append(t_phase1)
-            if phases.iloc[idx0]['mitosis-phase3'] != '-':
-                t_phase2 = float(phases.iloc[idx0]['mitosis-phase3'])
+            if phases.iloc[idx0]['mitosis-phase2'] != '-':
+                t_phase2 = float(phases.iloc[idx0]['mitosis-phase2'])
                 y_phase2 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase2)]
-                # axs[0].scatter(t_phase2, y_phase2, label='phase2')
                 y_value.append(y_phase2)
                 t_value.append(t_phase2)
-            if phases.iloc[idx0]['mitosis-phase4'] != '-':
-                t_phase3 = float(phases.iloc[idx0]['mitosis-phase4'])
+            if phases.iloc[idx0]['mitosis-phase3'] != '-':
+                t_phase3 = float(phases.iloc[idx0]['mitosis-phase3'])
                 y_phase3 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase3)]
                 y_value.append(y_phase3)
                 t_value.append(t_phase3)
+            if phases.iloc[idx0]['mitosis-phase4'] != '-':
+                t_phase4 = float(phases.iloc[idx0]['mitosis-phase4'])
+                y_phase4 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase4)]
+                y_value.append(y_phase4)
+                t_value.append(t_phase4)
  
             if args.skip_labeled and str_occur_time in log[str(expr)][str(c)]:
                 idx_start = get_idx_from_x(tchannel, t_phase1 - 3)
@@ -236,16 +233,15 @@ if __name__ == '__main__':
             axs[0].plot(tchannel[idx_start:idx_end], cchannel_nopeak[idx_start:idx_end], color='grey', zorder=0)
             yavg = (sum(y_value) / len(y_value)) # // 100 * 100
             axs[0].set_xlabel('Time (hr)')
-            axs[0].set_yticks(yavg + offset_range)
             axs[0].set_ylabel(r'|$\Delta$C| (aF)')
             if phases.iloc[idx0]['mitosis-phase1'] != '-':
-                axs[0].scatter(t_phase0, y_phase0, label='phase0')
-            if phases.iloc[idx0]['mitosis-phase2'] != '-':
                 axs[0].scatter(t_phase1, y_phase1, label='phase1')
-            if phases.iloc[idx0]['mitosis-phase3'] != '-':
+            if phases.iloc[idx0]['mitosis-phase2'] != '-':
                 axs[0].scatter(t_phase2, y_phase2, label='phase2')
-            if phases.iloc[idx0]['mitosis-phase4'] != '-':
+            if phases.iloc[idx0]['mitosis-phase3'] != '-':
                 axs[0].scatter(t_phase3, y_phase3, label='phase3')
+            if phases.iloc[idx0]['mitosis-phase4'] != '-':
+                axs[0].scatter(t_phase4, y_phase4, label='phase4')
             axs[0].legend()
 
             for ax, im in zip(axs[1:], ims):
