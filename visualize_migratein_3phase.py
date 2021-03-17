@@ -44,6 +44,10 @@ def get_offset_range(phases, label):
                 t_phase2 = float(phases.iloc[idx]['migration-phase3'])
                 y_phase2 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase2)]
                 y_value_each.append(y_phase2)
+            if phases.iloc[idx]['migration-phase4'] != '-':
+                t_phase3 = float(phases.iloc[idx]['migration-phase4'])
+                y_phase3 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase3)]
+                y_value_each.append(y_phase3)
             y_value_all_list.append(y_value_each)
 
     ydiff = [max(y_each) - min(y_each) for y_each in y_value_all_list]
@@ -96,7 +100,7 @@ if __name__ == '__main__':
         if expr in args.expr:
 
             img_fnames = img_fnames_all[expr]
-            num_phase = sum([int(phases.iloc[idx][phase_name] != '-') for phase_name in ['migration-phase1',  'migration-phase2', 'migration-phase3']])
+            num_phase = sum([int(phases.iloc[idx][phase_name] != '-') for phase_name in ['migration-phase1',  'migration-phase2', 'migration-phase3', 'migration-phase4']])
             if num_phase == 0:
                 raise ValueError("Invalid number of phases")
             fig, axs = plt.subplots(1, num_phase + 1)
@@ -124,6 +128,12 @@ if __name__ == '__main__':
                 # axs[0].scatter(t_phase2, y_phase2, label='phase2')
                 y_value.append(y_phase2)
                 t_value.append(t_phase2)
+            if phases.iloc[idx]['migration-phase4'] != '-':
+                t_phase3 = float(phases.iloc[idx]['migration-phase4'])
+                y_phase3 = cchannel_nopeak[get_idx_from_x(tchannel, t_phase3)]
+                # axs[0].scatter(t_phase2, y_phase2, label='phase2')
+                y_value.append(y_phase3)
+                t_value.append(t_phase3)
  
             if args.skip_labeled and str_occur_time in log[str(expr)][str(c)]:
                 idx_start = get_idx_from_x(tchannel, t_phase1 - 3)
@@ -210,6 +220,8 @@ if __name__ == '__main__':
                 axs[0].scatter(t_phase1, y_phase1, label='phase1')
             if phases.iloc[idx]['migration-phase3'] != '-':
                 axs[0].scatter(t_phase2, y_phase2, label='phase2')
+            if phases.iloc[idx]['migration-phase4'] != '-':
+                axs[0].scatter(t_phase3, y_phase3, label='phase3')
             axs[0].legend()
 
             for ax, im in zip(axs[1:], ims):
@@ -217,7 +229,7 @@ if __name__ == '__main__':
                 ax.set_xticklabels([])
                 ax.set_yticklabels([])
             img_fname = "%s-%02d.jpg" % (args.label.replace('-', ''), beh_counter)
-            print("%s saved" % img_fname)
+            print("%s saved (%d phases)" % (img_fname, num_phase))
             plt.savefig(img_fname)
             plt.close('all')
             beh_counter += 1
