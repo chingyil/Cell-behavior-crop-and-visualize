@@ -6,6 +6,8 @@ This is a script to label cell behaviors with different phases. For the data acc
 
 ## Prerequiste
 
+- The image folder path: This can be specified with ```--img-path``` in the labeling code
+- The capacitance signal folder path: This can be specified with ```--cdata-dir``` in the labeling code
 - Time label for each cell behavior: A csv file (default: ```slope_phase.csv```) consists at least the following attributes
   - Exp. index: The index of the experiment. Each experiment means an independent run of cell culture.
   - Channel: The channel index, or can be interpreted as the sensor index. This attribute gives a hint to labeler which sensor to look at.
@@ -36,7 +38,11 @@ The default log file path is ```log_mitosis.json``` so you don't need to explici
 
 The labeling interface looks like the following. The first subplot is the time sequence of capacitance difference. Four color points on the signal (blue/orange/green/red) indicate 4 phases chronologically, and these 4 phases are shown in the other subplots.
 
+![Mitosis labeling](img/mitosis_usage.png)
+
 To crop the region of interest, **click the top left corner** on one of the shown image, then **click the bottom right corner**. You should see the cropped image afterwards.
+
+![Mitosis labeling after crop](img/mitosis_aftercrop.png)
 
 ### Migration labeling
 
@@ -46,8 +52,12 @@ Migration labeling is same as mitosis labeling
 python3 visualize_migratein_3phase.py --phase-csv slope_phase.csv [--log-json log_migration.json]
 ```
 
+![Migrate-in labeling](img/migratein_usage.png)
+
 You can also label migrate-out event by specifying ```--label Migrate-out``` (Here we skip the ```--log-json``` argument```)
 
 ```
 python3 visualize_migratein_3phase.py --phase-csv slope_phase.csv --label Migrate-out
 ```
+
+![Migrate-out labeling](img/migrateout_usage.png)
