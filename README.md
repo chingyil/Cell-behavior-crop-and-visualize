@@ -1,8 +1,8 @@
 # Cell-behavior-labeling
 This is a script to label cell behaviors with different phases. For the data access, please refer to [this link](https://ieee-dataport.org/open-access/measurements-cancer-cell-proliferation-using-lab-cmos-capacitance-sensor-time-lapse#files). In this script, we provide an interface to visualize the cell status with different time label. It supports the following labeling mode.
 
-- Label from scratch
-- Label with prelabel log
+- [Label from scratch](#label-from-scratch)
+- [Label with prelabel log](#label-from-last-log)
 
 ## Prerequiste
 
