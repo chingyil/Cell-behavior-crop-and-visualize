@@ -64,6 +64,7 @@ if __name__ == '__main__':
     parser.add_argument("--expr", nargs='+', default=[1,3,7,20,22])
     parser.add_argument("--nmax-perexpr", default=8, type=int)
     parser.add_argument("--label", default='Migrate-in')
+    parser.add_argument("--format", default='jpg')
     parser.add_argument("--log-json", default="log_migration.json")
     parser.add_argument("--skip-labeled", action='store_true')
     args = parser.parse_args()
@@ -228,7 +229,8 @@ if __name__ == '__main__':
                 ax.imshow(im.crop(border))
                 ax.set_xticklabels([])
                 ax.set_yticklabels([])
-            img_fname = "%s-%02d.jpg" % (args.label.replace('-', ''), beh_counter)
+
+            img_fname = "%s-%02d.%s" % (args.label.replace('-', ''), beh_counter, args.format)
             print("%s saved (%d phases)" % (img_fname, num_phase))
             plt.savefig(img_fname)
             plt.close('all')
